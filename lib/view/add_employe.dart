@@ -1,10 +1,8 @@
 // ignore_for_file: must_be_immutable, non_constant_identifier_names
 
-
 import 'package:employee_list/service/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
-
 
 class AddEmploye extends StatelessWidget {
   AddEmploye({super.key});
@@ -105,22 +103,21 @@ class AddEmploye extends StatelessWidget {
             ),
             Center(
               child: ElevatedButton(
-              onPressed: () async {
-  String id = await randomAlphaNumeric(10);
-  Map<String, dynamic> employeeInfoMap = {
-    'Name': nameController.text,
-    'Age': ageController.text,
-    'Id': id,
-    'Location': locationController.text
-  };
-  await DatabaseService().addEmployeeDetails(employeeInfoMap, id);
-},
+                onPressed: () async {
+                  String id = randomAlphaNumeric(10);
+                  Map<String, dynamic> employeeInfoMap = {
+                    'Name': nameController.text,
+                    'Age': ageController.text,
+                    'Id': id,
+                    'Location': locationController.text
+                  };
+                  await DatabaseService()
+                      .addEmployeeDetails(employeeInfoMap, id);
+                },
                 child: const Text(
                   'Submit',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  
-                ), 
-              
+                ),
               ),
             ),
           ],

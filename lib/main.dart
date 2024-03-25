@@ -1,6 +1,5 @@
-
 import 'package:employee_list/firebase_options.dart';
-import 'package:employee_list/home_page.dart';
+import 'package:employee_list/view/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
