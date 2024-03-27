@@ -1,31 +1,38 @@
+import 'package:employee_list/model/employee_model.dart';
 import 'package:flutter/material.dart';
 
-class EditScreen extends StatefulWidget {
-  const EditScreen({super.key});
+class EditEmployee extends StatefulWidget {
+  EditEmployee({super.key, required this.employee});
+
+  final EmployeeModel employee;
 
   @override
-  State<EditScreen> createState() => _EditScreenState();
+  State<EditEmployee> createState() => _EditEmployeeState();
 }
 
-class _EditScreenState extends State<EditScreen> {
+class _EditEmployeeState extends State<EditEmployee> {
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController ageController = TextEditingController();
+
+  TextEditingController locationController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[600],
       appBar: AppBar(
-        backgroundColor: Colors.blue[800],
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Edit ',
+              'Employee ',
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.blue,
                   fontSize: 24,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              'employee',
+              'form',
               style: TextStyle(
                   color: Colors.orange,
                   fontSize: 24,
@@ -34,6 +41,88 @@ class _EditScreenState extends State<EditScreen> {
           ],
         ),
       ),
+      body: Container(
+        margin: const EdgeInsets.only(left: 20, top: 30, right: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Name',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: nameController,
+                decoration: const InputDecoration(border: InputBorder.none),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Age',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: ageController,
+                decoration: const InputDecoration(border: InputBorder.none),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Location',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: locationController,
+                decoration: const InputDecoration(border: InputBorder.none),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () async {
+                  editEmployee(context);
+                },
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  editEmployee(BuildContext context) {}
 }

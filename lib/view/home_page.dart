@@ -1,10 +1,9 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:employee_list/service/data_service.dart';
+import 'package:employee_list/controller/employee_controller.dart';
+import 'package:employee_list/model/employee_model.dart';
 import 'package:employee_list/view/add_employe.dart';
 import 'package:employee_list/view/edit_employee.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,77 +13,85 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Stream? EmployeeStream;
-
-  getontheload() async {
-    EmployeeStream = await DatabaseService().getEmployeeDetails();
-    setState(() {});
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<EmployeeController>(context, listen: false).fetchAllEmployees();
   }
 
   @override
-  void initState() {
-    getontheload();
-    super.initState();
-  }
-
-  Widget allEmployeeDetails() {
-    return StreamBuilder(
-        stream: EmployeeStream,
-        builder: (context, AsyncSnapshot snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  itemCount: snapshot.data.docs.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot ds = snapshot.data.docs[index];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: Material(
-                        elevation: 5,
-                        borderRadius: BorderRadius.circular(10),
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              color: Colors.blue[100],
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.blue[600],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AddEmploye()));
+          },
+          child: const Icon(Icons.add),
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.blue[800],
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Employee ',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'detail',
+                style: TextStyle(
+                    color: Colors.orange,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
+        body: Consumer<EmployeeController>(
+          builder: (context, value, child) {
+            return ListView.builder(
+              itemCount: value.employeeList.length,
+              itemBuilder: (context, index) {
+                final EmployeeModel employee = value.employeeList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.blue[100],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Name : ' + ds['Name'],
-                                    style: TextStyle(
-                                        color: Colors.blue[800],
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EditScreen()));
-                                    },
-                                    child: Icon(
-                                      Icons.edit,
-                                      color: Colors.orange[800],
-                                    ),
-                                  )
-                                ],
+                              Text(
+                                'Name : ${employee.name}',
+                                style: TextStyle(
+                                    color: Colors.blue[800],
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Age : ' + ds['Age'],
+                                'Age : ${employee.age.toString()}',
                                 style: TextStyle(
                                     color: Colors.orange[800],
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Location : ' + ds['Location'],
+                                'Location : ${employee.location}',
                                 style: TextStyle(
                                     color: Colors.blue[800],
                                     fontSize: 20,
@@ -92,54 +99,29 @@ class _HomeScreenState extends State<HomeScreen> {
                               )
                             ],
                           ),
-                        ),
+                          Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.orange,
+                                  )),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.delete),
+                                color: Colors.red,
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                    );
-                  },
-                )
-              : Container();
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue[600],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddEmploye()));
-        },
-        child: const Icon(Icons.add),
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.blue[800],
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Employee ',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'detail',
-              style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-      ),
-      body: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
-        child: Column(
-          children: [Expanded(child: allEmployeeDetails())],
-        ),
-      ),
-    );
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ));
   }
 }
