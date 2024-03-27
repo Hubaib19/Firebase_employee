@@ -23,7 +23,6 @@ class _EditEmployeeState extends State<EditEmployee> {
 
   @override
   void initState() {
-    
     super.initState();
     nameController.text = widget.employee.name!;
     ageController.text = widget.employee.age.toString();
@@ -138,9 +137,13 @@ class _EditEmployeeState extends State<EditEmployee> {
   }
 
   editEmployee(BuildContext context) {
-
-    final pro = Provider.of<EmployeeController>(context,listen: false);
-    final EmployeeModel updatedEmployee = EmployeeModel(age: int.parse(ageController.text), id: widget.employee.id, location: locationController.text, name: nameController.text,image: "");
+    final pro = Provider.of<EmployeeController>(context, listen: false);
+    final EmployeeModel updatedEmployee = EmployeeModel(
+        age: int.parse(ageController.text),
+        id: widget.employee.id,
+        location: locationController.text,
+        name: nameController.text,
+        image: "");
     pro.updateEmployee(id: widget.employee.id!, employee: updatedEmployee);
     Navigator.pop(context);
   }

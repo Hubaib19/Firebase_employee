@@ -73,12 +73,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CircleAvatar(
-                            
                             backgroundImage: NetworkImage(employee.image!),
                             radius: 20,
-                            
                           ),
-                          const SizedBox(width: 2,),
+                          const SizedBox(
+                            width: 2,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -109,7 +109,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => EditEmployee(employee: employee,),));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EditEmployee(
+                                            employee: employee,
+                                          ),
+                                        ));
                                   },
                                   icon: const Icon(
                                     Icons.edit,

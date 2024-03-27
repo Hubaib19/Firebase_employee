@@ -48,34 +48,36 @@ class AddEmploye extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Stack(
               children: [
                 Center(
                   child: Consumer<EmployeeController>(
-                    builder: (context, value, child) => 
-                   Container(
+                    builder: (context, value, child) => Container(
                       height: 150,
                       width: 150,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: value.selectedImage!=null?FileImage(File(value.selectedImage!.path)):AssetImage("assets/add image.png")as ImageProvider,fit: BoxFit.cover),
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.yellow
-                      ),
+                          image: DecorationImage(
+                              image: value.selectedImage != null
+                                  ? FileImage(File(value.selectedImage!.path))
+                                  : AssetImage("assets/add image.png")
+                                      as ImageProvider,
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.yellow),
                     ),
                   ),
                 ),
                 Positioned(
-                   right: 100,
-                   bottom: -10
-                ,
+                  right: 100,
+                  bottom: -10,
                   child: Consumer<EmployeeController>(
-                    builder: (context, value, child) => 
-                     IconButton(onPressed: (){
-                      value.selectImage(source: ImageSource.camera);
-                     }, icon: Icon(Icons.camera),)
-                    ),
-                    )
+                      builder: (context, value, child) => IconButton(
+                            onPressed: () {
+                              value.selectImage(source: ImageSource.camera);
+                            },
+                            icon: Icon(Icons.camera),
+                          )),
+                )
               ],
             ),
             const Text(
@@ -156,20 +158,19 @@ class AddEmploye extends StatelessWidget {
     );
   }
 
-  addEmployee(BuildContext context)async {
+  addEmployee(BuildContext context) async {
     final pro = Provider.of<EmployeeController>(context, listen: false);
     String id = randomAlphaNumeric(10);
-    DatabaseService service  = DatabaseService();
-    
+    DatabaseService service = DatabaseService();
 
-    await service.uploadImage(name: nameController.text, fileimage: File(pro.selectedImage!.path));
+    await service.uploadImage(
+        name: nameController.text, fileimage: File(pro.selectedImage!.path));
     final EmployeeModel employee = EmployeeModel(
-      age: int.parse(ageController.text),
-      id: id,
-      location: locationController.text,
-      name: nameController.text,
-      image: service.downloadurl
-    );
+        age: int.parse(ageController.text),
+        id: id,
+        location: locationController.text,
+        name: nameController.text,
+        image: service.downloadurl);
     pro.addEmployee(employee: employee, id: id);
     Navigator.of(context).pop();
   }
