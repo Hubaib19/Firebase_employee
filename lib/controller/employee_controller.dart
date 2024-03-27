@@ -10,9 +10,9 @@ class EmployeeController extends ChangeNotifier {
   DatabaseService service = DatabaseService();
   File? selectedImage;
 
-  void selectImage({required source})async{
+  void selectImage({required source}) async {
     final returnedImage = await ImagePicker().pickImage(source: source);
-    if (returnedImage!=null) {
+    if (returnedImage != null) {
       selectedImage = File(returnedImage.path);
       notifyListeners();
     }
@@ -36,7 +36,7 @@ class EmployeeController extends ChangeNotifier {
     return service.addEmployee(employee: employee, id: id);
   }
 
-  updateEmployee({required String id,required EmployeeModel employee}){
+  updateEmployee({required String id, required EmployeeModel employee}) {
     return service.updateEmployee(id: id, employee: employee);
   }
 }
