@@ -78,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             radius: 20,
                             
                           ),
+                          const SizedBox(width: 2,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
