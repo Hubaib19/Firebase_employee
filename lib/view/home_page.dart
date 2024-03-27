@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<EmployeeController>(context, listen: false).fetchAllEmployees();
   }
@@ -73,6 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          CircleAvatar(
+                            
+                            backgroundImage: NetworkImage(employee.image!),
+                            radius: 20,
+                            
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -102,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => EditEmployee(employee: employee,),));
+                                  },
                                   icon: const Icon(
                                     Icons.edit,
                                     color: Colors.orange,

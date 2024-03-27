@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
+import 'package:employee_list/controller/employee_controller.dart';
 import 'package:employee_list/model/employee_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditEmployee extends StatefulWidget {
   EditEmployee({super.key, required this.employee});
@@ -16,6 +20,15 @@ class _EditEmployeeState extends State<EditEmployee> {
   TextEditingController ageController = TextEditingController();
 
   TextEditingController locationController = TextEditingController();
+
+  @override
+  void initState() {
+    
+    super.initState();
+    nameController.text = widget.employee.name!;
+    ageController.text = widget.employee.age.toString();
+    locationController.text = widget.employee.location!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,5 +137,11 @@ class _EditEmployeeState extends State<EditEmployee> {
     );
   }
 
-  editEmployee(BuildContext context) {}
+  editEmployee(BuildContext context) {
+
+    final pro = Provider.of<EmployeeController>(context,listen: false);
+    final EmployeeModel updatedEmployee = EmployeeModel(age: int.parse(ageController.text), id: widget.employee.id, location: locationController.text, name: nameController.text,image: "");
+    pro.updateEmployee(id: widget.employee.id!, employee: updatedEmployee);
+    Navigator.pop(context);
+  }
 }

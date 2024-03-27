@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           create: (context) => EmployeeController(),
         )
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeScreen(),
       ),
