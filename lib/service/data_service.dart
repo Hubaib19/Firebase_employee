@@ -17,9 +17,9 @@ class DatabaseService {
     }
   }
 
-  uploadImage({required String name,required fileimage})async{
+  uploadImage({required String name, required fileimage}) async {
     final childfolder = storage.child("employee_images");
-   final image =  childfolder.child("${name}.jpg");
+    final image = childfolder.child("${name}.jpg");
     try {
       await image.putFile(fileimage);
       downloadurl = await image.getDownloadURL();
@@ -28,7 +28,7 @@ class DatabaseService {
     }
   }
 
-  updateEmployee({required String id,required EmployeeModel employee})async{
+  updateEmployee({required String id, required EmployeeModel employee}) async {
     try {
       await firestore.collection("Employees").doc(id).update(employee.toJson());
     } catch (e) {
