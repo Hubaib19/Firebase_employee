@@ -39,4 +39,7 @@ class EmployeeController extends ChangeNotifier {
   updateEmployee({required String id, required EmployeeModel employee}) {
     return service.updateEmployee(id: id, employee: employee);
   }
+  deleteEmployee({required String id}){
+    return service.deleteEmployee(id: id);
+  }
 }

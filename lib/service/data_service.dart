@@ -35,4 +35,12 @@ class DatabaseService {
       throw Exception(e);
     }
   }
+
+  deleteEmployee({required String id})async{
+try {
+  await firestore.collection("Employees").doc(id).delete();
+} catch (e) {
+  throw e;
+}
+  }
 }

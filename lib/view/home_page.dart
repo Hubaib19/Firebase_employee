@@ -122,7 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.orange,
                                   )),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Provider.of<EmployeeController>(context,listen: false).deleteEmployee(id: employee.id!);
+                                },
                                 icon: const Icon(Icons.delete),
                                 color: Colors.red,
                               ),
