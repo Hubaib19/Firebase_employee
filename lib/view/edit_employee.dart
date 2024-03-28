@@ -37,14 +37,14 @@ class _EditEmployeeState extends State<EditEmployee> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Employee ',
+              'Edit ',
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 24,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              'form',
+              'detail',
               style: TextStyle(
                   color: Colors.orange,
                   fontSize: 24,

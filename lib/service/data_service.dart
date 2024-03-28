@@ -1,4 +1,4 @@
-// ignore_for_file: use_rethrow_when_possible, avoid_print, await_only_futures
+// ignore_for_file: use_rethrow_when_possible, avoid_print, await_only_futures, unnecessary_brace_in_string_interps
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:employee_list/model/employee_model.dart';
